@@ -1,27 +1,87 @@
-# Exercicio-Sensores
-Exercicio avaliativo de BD-2 
+# IoT Sensor Monitoring with MongoDB
 
+Academic project developed during the **Database II** course as part of my Software Engineering studies.
 
-Utilizando deste conceito e dos seus conhecimentos em Bancos de Dados (BDs) Orientados a Documentos, pede-se:
-• Crie três Threads, cada uma responsável por simular a temperatura de um sensor em uma rede de Internet das
-Coisas (IoT);
-• Cada sensor deverá, de tempos em tempos (tempo pode ser configurado por você, programador), gerar uma
-temperatura aleatória, que deve variar entre 30 e 40 C°;
-• Estes valores de sensores, ao serem gerados, além de serem apresentados no terminal do Python, também
-deverão ser guardados no BD MongoDB (mais particularmente dentro de um database chamado bancoiot, que
-possui uma collection chamada sensores);
-• Cada sensor terá seu próprio documento na collection sensores (que podem ser criados manualmente de forma
-antecipada), com o objetivo de não só guardar a última leitura de cada um deles, mas também informar se alguns
-deles estão ou não alarmados. Cada documento deve possuir os campos: _id (gerado automaticamente),
-nomeSensor (Ex: Temp1, Temp2, etc..), valorSensor (que é gerado aleatoriamente no Python), unidadeMedida
-(que é C° para todos) e sensorAlarmado (setado inicialmente com o valor false);
-• O campo sensorAlarmado deverá ter seu valor alterado no documento de um sensor para true quando a
-temperatura gerada pelo respectivo sensor for > 38 C°;
-• A partir do momento que um sensor tenha seu campo alarmado setado em true, dali em diante ele não deverá
-mais gerar valores aleatórios de temperatura (e consequentemente não precisará mais atualizar seu documento
-no BD), mas sim mostrar a seguinte mensagem no terminal do Python: “Atenção! Temperatura muito alta!
-Verificar Sensor X!”, em que X é o nome do sensor alarmado.
-Bom trabalho a todos!
+The project simulates an **IoT temperature monitoring system** using Python threads and MongoDB. Multiple virtual sensors generate temperature readings independently, store their state in a MongoDB database, and trigger alerts when a temperature threshold is exceeded.
 
-Renzo Paranaíba Mesquita
+## 📚 Project Overview
 
+The application simulates three independent temperature sensors using Python threads.
+
+Each sensor periodically generates a random temperature between **30°C and 40°C** and stores its latest state in MongoDB.
+
+When a sensor records a temperature above **38°C**, it enters an alarm state and stops generating new readings.
+
+The application then reports a high-temperature warning for that sensor.
+
+## ⚙️ How It Works
+
+Each sensor stores information such as:
+
+* Sensor name
+* Current temperature
+* Measurement unit
+* Alarm status
+
+The sensor lifecycle can be summarized as:
+
+```text
+Start Sensor
+     │
+     ▼
+Generate Temperature
+     │
+     ▼
+Store Reading in MongoDB
+     │
+     ▼
+Temperature > 38°C?
+     │
+   ┌─┴─┐
+   │   │
+  No  Yes
+   │   │
+   │   ▼
+   │  Trigger Alarm
+   │   │
+   │   ▼
+   │  Stop Generating Readings
+   │
+   └──► Continue Monitoring
+```
+
+## 🛠️ Technologies
+
+* Python
+* MongoDB
+* Python Threads
+* JSON
+
+## 📂 Project Structure
+
+```text
+.
+├── db/
+├── helper/
+├── json/
+├── main.py
+└── README.md
+```
+
+## 💡 Concepts Explored
+
+This project provided practical experience with:
+
+* NoSQL databases
+* MongoDB document operations
+* Multithreading
+* IoT sensor simulation
+* Data persistence
+* Threshold-based monitoring
+* Application state management
+
+## 🎓 Academic Context
+
+This project was developed as an evaluated exercise for the **Database II** course.
+
+It is maintained as part of my academic portfolio to document my experience integrating Python applications with MongoDB and simulating concurrent IoT sensor monitoring.
